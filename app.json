@@ -13,13 +13,25 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.akhaled01.croozz",
+      "infoPlist": {
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "CROOZZ requires location in the background",
+        "NSLocationWhenInUseUsageDescription": "CROOZZ requires location while in use",
+        "NSMotionUsageDescription": "CROOZZ uses motion-detection to determine the motion-activity of the device (walking, vehicle, bicycle, etc)",
+        "UIBackgroundModes": ["location", "fetch", "processing"],
+        "BGTaskSchedulerPermittedIdentifiers": [
+          "com.transistorsoft.fetch",
+          "com.transistorsoft.customtask"
+        ]
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.akhaled01.croozz"
     },
     "web": {
       "bundler": "metro",
@@ -27,10 +39,18 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "react-native-background-geolocation",
+      "react-native-background-fetch",
+      "expo-gradle-ext-vars"
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "6e621e67-385a-4385-a076-1c78a0f144f9"
+      }
     }
   }
 }
