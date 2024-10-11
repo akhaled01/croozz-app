@@ -8,9 +8,11 @@ Before you begin, ensure the following dependencies and tools are installed:
 
 1. **Node.js & npm**: Ensure that you have Node.js and npm installed. You can download it from [here](https://nodejs.org/en/).
 2. **Expo CLI**: Install Expo CLI globally using npm:
+
    ```bash
    npm install -g expo-cli
    ```
+   
 3. **Android SDK**: The Android SDK must be installed and its path correctly set up in your environment. The default location is usually `$HOME/Android/sdk`.
 4. **TransistorSoft’s react-native-background-geolocation**: Make sure you've installed this package after ejecting from Expo.
 
