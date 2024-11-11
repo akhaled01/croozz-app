@@ -25,7 +25,7 @@ const Speed = ({ isDarkMode }: { isDarkMode: boolean }) => {
             isDarkMode ? styles.darkText : styles.lightText,
           ]}
         >
-          {Math.round(speed)}
+          {(Math.round(speed) * 3.6).toFixed(0)}
         </Text>
         <Text style={styles.speedUnit}>km/h</Text>
       </View>

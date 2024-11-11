@@ -1,15 +1,25 @@
-import { Easing, View, Text } from "react-native";
+import React, { useEffect, useRef } from "react";
+import { Easing, View, Text, Animated } from "react-native";
 import { styles } from "../styles/styles";
-import { MotiView } from "moti";
 import useBackgroundGeolocation from "../hooks/useBackgroundGeolocation";
 
-const Odometer = ({
-  isDarkMode,
-}: {
-  isDarkMode: boolean;
-}) => {
+const Odometer = ({ isDarkMode }: { isDarkMode: boolean }) => {
   const { points } = useBackgroundGeolocation();
   const digits = points.toString().padStart(6, "0").split("");
+  const animatedValues = useRef(
+    digits.map(() => new Animated.Value(0))
+  ).current;
+
+  useEffect(() => {
+    digits.forEach((digit, index) => {
+      Animated.timing(animatedValues[index], {
+        toValue: -60 * parseInt(digit),
+        duration: 500,
+        easing: Easing.out(Easing.ease),
+        useNativeDriver: true,
+      }).start();
+    });
+  }, [points]);
 
   return (
     <View
@@ -20,7 +30,7 @@ const Odometer = ({
           : styles.lightOdometerContainer,
       ]}
     >
-      {digits.map((digit, index) => (
+      {digits.map((_digit, index) => (
         <View
           key={index}
           style={[
@@ -30,13 +40,9 @@ const Odometer = ({
               : styles.lightOdometerContainer,
           ]}
         >
-          <MotiView
-            from={{ translateY: 0 }}
-            animate={{ translateY: -60 * parseInt(digit) }}
-            transition={{
-              type: "timing",
-              duration: 500,
-              easing: Easing.out(Easing.ease),
+          <Animated.View
+            style={{
+              transform: [{ translateY: animatedValues[index] }],
             }}
           >
             {[...Array(10)].map((_, i) => (
@@ -50,7 +56,7 @@ const Odometer = ({
                 {i}
               </Text>
             ))}
-          </MotiView>
+          </Animated.View>
         </View>
       ))}
     </View>
