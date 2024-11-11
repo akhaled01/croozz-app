@@ -16,6 +16,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginTop: 40,
     paddingHorizontal: 20,
     paddingTop: 20,
     paddingBottom: 10,
@@ -80,10 +81,11 @@ export const styles = StyleSheet.create({
     backgroundColor: '#F2F2F7',
   },
   drawerHeader: {
-    flexDirection: 'row',
+    flexDirection: 'column-reverse',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
+    alignItems: 'flex-start',
+    gap: 15,
+    marginTop: 40
   },
   drawerTitle: {
     fontSize: 24,

@@ -4,12 +4,9 @@ import React, { useState, useCallback, useRef } from "react";
 import {
   View,
   Text,
-  Button,
   TouchableOpacity,
   useColorScheme,
   SafeAreaView,
-  Platform,
-  Modal,
   Animated,
   Pressable,
 } from "react-native";
@@ -24,17 +21,14 @@ import DrivingStatus from "./components/DrivingStatus";
 import Odometer from "./components/Odometer";
 import { styles } from "./styles/styles";
 import Speed from "./components/Speed";
+import { router } from "expo-router";
 
-export default function Component() {
-  const [points, setPoints] = useState(0);
-  const [speed, setSpeed] = useState(0);
+const Page = () => {
   const [isDriving, setIsDriving] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(useColorScheme() === "dark");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const drawerAnimation = useRef(new Animated.Value(-300)).current;
   const overlayAnimation = useRef(new Animated.Value(0)).current;
-
-  const resetPoints = () => setPoints(0);
 
   const [fontsLoaded] = useFonts({
     Inter_400Regular,
@@ -53,10 +47,6 @@ export default function Component() {
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
-  };
-
-  const toggleDriving = () => {
-    setIsDriving(!isDriving);
   };
 
   const openDrawer = () => {
@@ -119,8 +109,18 @@ export default function Component() {
               styles.drawerTitle,
               isDarkMode ? styles.darkText : styles.lightText,
             ]}
+            onPress={() => router.replace("/")}
           >
-            Profile
+            Home
+          </Text>
+          <Text
+            style={[
+              styles.drawerTitle,
+              isDarkMode ? styles.darkText : styles.lightText,
+            ]}
+            onPress={() => router.replace("/leaderboard")}
+          >
+            Leaderboard
           </Text>
           <TouchableOpacity onPress={closeDrawer} style={styles.closeButton}>
             <Ionicons
@@ -167,16 +167,10 @@ export default function Component() {
         <Odometer isDarkMode={isDarkMode} />
         <Speed isDarkMode={isDarkMode} />
         <DrivingStatus isDriving={isDriving} isDarkMode={isDarkMode} />
-        {/* <Text style={[styles.statusText, isDarkMode ? styles.darkText : styles.lightText]}>Testing Functions</Text>
-        <View style={styles.buttonContainer}>
-          <Button title="Reset Points" onPress={resetPoints} color="#FF3B30" />
-          <Button title="Add Points" onPress={() => setPoints(points + 1)} color="#FF3B30" />
-          <Button title="Add Speed" onPress={() => setSpeed(speed + 1)} color="#FF3B30" />
-          <Button title="Reset Speed" onPress={() => setSpeed(0)} color="#FF3B30" />
-          <Button title={isDriving ? "Stop Driving" : "Start Driving"} onPress={toggleDriving} color="#FF3B30" />
-        </View> */}
       </View>
       {isDrawerOpen && <DrawerContent />}
     </SafeAreaView>
   );
 }
+
+export default Page;
