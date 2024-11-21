@@ -30,6 +30,6 @@ echo "Updated android/local.properties with Android SDK path."
 
 echo "Running npm run android"
 
-npm run android
+npx expo run:android -d
 
 echo "successful running iteration"

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "CROOZZ",
-    "slug": "Croozz",
+    "name": "croozz",
+    "slug": "croozz",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
