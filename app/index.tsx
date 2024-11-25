@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
   View,
   Text,
@@ -19,13 +19,17 @@ import { styles } from "./styles/styles";
 import Speed from "./components/Speed";
 import { Drawer } from "./components/Drawer";
 import useBackgroundGeolocation from "./hooks/useBackgroundGeolocation";
+import { Href, useRouter } from "expo-router";
+import { useSupabaseSession } from "./contexts/SupabaseSessionContext";
 
 const Page = () => {
+  const { session } = useSupabaseSession();
   const { isDriving } = useBackgroundGeolocation();
   const [isDarkMode, setIsDarkMode] = useState(useColorScheme() === "dark");
   const { Component: DrawerComponent, Trigger: openDrawer } = Drawer({
     isDarkMode,
   });
+  const router = useRouter();
 
   const [fontsLoaded] = useFonts({
     Inter_400Regular,
@@ -41,6 +45,12 @@ const Page = () => {
   if (!fontsLoaded) {
     return null;
   }
+
+  useEffect(() => {
+    if (!session) {
+      router.replace("/auth" as Href);
+    }
+  }, []);
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);

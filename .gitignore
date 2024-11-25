@@ -19,3 +19,4 @@ web-build/
 expo-env.d.ts
 .vscode
 # @end expo-cli
+.env
